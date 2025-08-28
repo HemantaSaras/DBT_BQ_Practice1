@@ -1,43 +1,29 @@
 with customers as (
-    select *
-    from {{ ref('stg_jaffle_shop__customers') }}
+    select * from {{ ref ('stg_jaffle_shop__customers')}}
 ),
-
 orders as (
-    select *
-    from {{ ref('stg_jaffle_shop__orders') }}
+    select * from {{ ref ('fct_orders')}}
 ),
-
-payments as (
-    select *
-    from {{ ref('stg_jaffle_shop__payment') }}
-),
-
-
 customer_orders as (
     select
-        USER_ID as customer_id,
-        count(ID) as total_orders
+        customer_id,
+        min (order_date) as first_order_date,
+        max (order_date) as most_recent_order_date,
+        count(order_id) as number_of_orders,
+        sum(amount) as lifetime_value
     from orders
-    group by USER_ID
+    group by 1
 ),
-
-customer_payments as (
+ final as (
     select
-        o.USER_ID as customer_id,
-        sum(p.amount) as total_amount
-    from payments p
-    join orders o on p.orderid = o.ID
-    group by o.USER_ID
+        customers.customer_id,
+        customers.first_name,
+        customers.last_name,
+        customer_orders.first_order_date,
+        customer_orders.most_recent_order_date,
+        coalesce (customer_orders.number_of_orders, 0) as number_of_orders,
+        customer_orders.lifetime_value
+    from customers
+    left join customer_orders using (customer_id)
 )
-
-
-select
-    c.ID as customer_id,
-    c.FIRST_NAME as first_name,
-    c.LAST_NAME as last_name,
-    coalesce(o.total_orders, 0) as total_orders,
-    coalesce(p.total_amount, 0) as total_amount
-from customers c
-left join customer_orders o on c.ID = o.customer_id
-left join customer_payments p on c.ID = p.customer_id
+select * from final
