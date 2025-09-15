@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: stg_Ecom1_Payments
+    description: Normalized payments per order with typed numeric values
+    columns:
+      - name: order_id
+        description: Order identifier for this payment record
+        tests:
+          - not_null
+        # relationships:
+        #   to: ref('stg_Ecom1_Orders')
+        #   field: order_id
+
+      - name: payment_sequential
+        description: Sequential number of the payment event for the order (0-based or 1-based per source)
+        tests:
+          - not_null
+
+      - name: payment_type
+        description: Payment method category (e.g., credit_card, boleto, voucher, debit_card, pix)
+        tests:
+          - accepted_values:
+              values: [
+                'credit_card',
+                'wallet',
+                'voucher',
+                'debit_card'
+              ]
+
+      - name: payment_installments
+        description: Number of installments for the payment (0 if not applicable)
+
+      - name: payment_value
+        description: Monetary value captured for this payment event
+        tests:
+          - not_null

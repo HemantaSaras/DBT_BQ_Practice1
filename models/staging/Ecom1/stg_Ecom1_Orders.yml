@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: stg_Ecom1_Orders
+    description: Cleaned orders with normalized status and typed timestamps
+    columns:
+      - name: order_id
+        description: Unique identifier of the order
+        tests:
+          - unique
+          - not_null
+
+      - name: customer_id
+        description: Customer identifier placing the order
+        tests:
+          - not_null
+        # relationships:
+        #   to: ref('stg_Ecom1_Customers')
+        #   field: customer_id
+
+      - name: order_status
+        description: Current lifecycle status of the order
+        tests:
+          - accepted_values:
+              values: [
+                'approved',
+                'processing',
+                'invoiced',
+                'shipped',
+                'delivered',
+                'canceled',
+                'unavailable'
+              ]
+
+      - name: order_purchase_timestamp
+        description: Timestamp when the order was placed
+
+      - name: order_approved_at
+        description: Timestamp when the order was approved
+
+      - name: order_delivered_timestamp
+        description: Timestamp when the order was delivered to the customer
+
+      - name: order_estimated_delivery_date
+        description: Estimated delivery date computed at purchase time

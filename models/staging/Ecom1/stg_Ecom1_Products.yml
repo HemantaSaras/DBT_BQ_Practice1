@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: stg_Ecom1_Products
+    description: Product catalog with normalized category and typed physical dimensions
+    columns:
+      - name: product_id
+        description: Unique identifier of the product
+        tests:
+          - unique
+          - not_null
+
+      - name: product_category_name
+        description: Lowercased category name of the product
+
+      - name: product_weight_g
+        description: Product weight in grams (may be null if missing)
+        # relationships:
+        #   to: ref('stg_Ecom1_OrderItems')
+        #   field: product_id
+        #   config:
+        #     severity: warn
+
+      - name: product_length_cm
+        description: Product length in centimeters
+
+      - name: product_height_cm
+        description: Product height in centimeters
+
+      - name: product_width_cm
+        description: Product width in centimeters

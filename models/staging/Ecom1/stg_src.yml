@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: ecom1
+    schema: delta-coil-468606-e1
+    tables:
+      - name: Ecom1_Customers
+        description: customers addresses
+      - name: Ecom1_OrderItems
+        description: order item details and price
+      - name: Ecom1_Orders
+        description: order journey timestamp and status
+      - name: Ecom1_Payments
+        description: payment details of an order
+      - name: Ecom1_Products
+        description: dimensions of a product
