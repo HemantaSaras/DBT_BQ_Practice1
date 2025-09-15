@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: stg_Ecom1_OrderItems
+    description: order item details and price
+    columns:
+      - name: order_id
+        description: id of order
+        tests:
+          - unique
+          - not_null
+      - name: product_id
+        description: id of product
+      - name: seller_id
+        description: id of seller
+      - name: price
+        description: price of order
+      - name: shipping_charges
+        description: charges of shipping

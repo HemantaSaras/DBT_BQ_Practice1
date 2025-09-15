@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: stg_Ecom1_Customers
+    description: customers addresses
+    columns:
+      - name: customer_id
+        description: id of customers
+        tests:
+          - unique
+          - not_null
+      - name: customer_zip_code_prefix,
+        description: zip code of customer address
+      - name: customer_city,
+        description: customer city address
+      - name: customer_state
+        description: state of customer
