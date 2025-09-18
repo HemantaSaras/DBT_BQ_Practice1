@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: ecom1
-    schema: delta-coil-468606-e1
+    schema: Practice_Saras
     tables:
       - name: Ecom1_Customers
         description: customers addresses

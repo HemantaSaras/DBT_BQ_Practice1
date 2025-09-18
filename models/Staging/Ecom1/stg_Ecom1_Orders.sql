@@ -7,7 +7,7 @@ SELECT
   order_delivered_timestamp,
   order_estimated_delivery_date
 FROM
-  `delta-coil-468606-e1.Practice_Saras.Ecom1_Orders`
+  {{ source('ecom1', "Ecom1_Orders")}}
 WHERE
   order_id IS NOT NULL
   AND customer_id IS NOT NULL
