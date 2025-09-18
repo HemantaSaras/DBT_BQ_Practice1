@@ -5,4 +5,4 @@ SELECT
   price,
   shipping_charges
 FROM
-  `delta-coil-468606-e1.Practice_Saras.Ecom1_OrderItems`
+  {{ source('ecom1', "Ecom1_OrderItems")}}

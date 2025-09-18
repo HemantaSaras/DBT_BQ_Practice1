@@ -6,7 +6,7 @@ SELECT
   product_height_cm,
   product_width_cm
 FROM
-  `delta-coil-468606-e1.Practice_Saras.Ecom1_Products`
+  {{ source('ecom1', "Ecom1_Products")}}
 WHERE
   product_id IS NOT NULL AND
   not(
