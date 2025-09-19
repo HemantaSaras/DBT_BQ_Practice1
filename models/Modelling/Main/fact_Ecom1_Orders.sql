@@ -49,7 +49,7 @@ SELECT
     o.order_delivered_timestamp,
     o.order_estimated_delivery_date,
     ir.item_count,
-    ir.item_subtotal,
+    ir.item_subtotal, -- item_price
     ir.shipping_total,
     (ir.item_subtotal + COALESCE(ir.shipping_total, 0)) AS merchandise_plus_shipping,
     pr.paid_amount,
