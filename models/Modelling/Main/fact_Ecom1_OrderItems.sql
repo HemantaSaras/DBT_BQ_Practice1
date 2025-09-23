@@ -1,4 +1,4 @@
-{% set stg_orders = ref('stg_Ecom1_Orders') %}
+-- {% set stg_orders = ref('stg_Ecom1_Orders') %}
 
 {{ config(
     materialized='incremental',
@@ -15,7 +15,7 @@ WITH items AS (
         CAST(shipping_charges AS NUMERIC) AS shipping_charges,
     FROM {{ ref('stg_Ecom1_OrderItems') }}
     {% if is_incremental() %}
-      WHERE order_id IN (SELECT DISTINCT order_id FROM {{ stg_orders }})
+      WHERE order_id IN (SELECT DISTINCT order_id FROM {{ ref('stg_Ecom1_Orders') }})
     {% endif %}
 )
 

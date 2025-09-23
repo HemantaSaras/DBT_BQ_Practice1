@@ -61,6 +61,3 @@ SELECT
 FROM orders o
 LEFT JOIN item_rollup ir ON ir.order_id = o.order_id
 LEFT JOIN payment_rollup pr ON pr.order_id = o.order_id
-
-
-

@@ -1,4 +1,4 @@
-{% set stg_orders = ref('stg_Ecom1_Orders') %}
+-- {% set stg_orders = ref('stg_Ecom1_Orders') %}
 
 {{ config(
     materialized='incremental',
@@ -14,5 +14,5 @@ SELECT
     CAST(payment_value AS NUMERIC) AS payment_value
 FROM {{ ref('stg_Ecom1_Payments') }}
 {% if is_incremental() %}
-  WHERE order_id IN (SELECT DISTINCT order_id FROM {{ stg_orders }})
+  WHERE order_id IN (SELECT DISTINCT order_id FROM {{ ref('stg_Ecom1_Orders') }})
 {% endif %}
