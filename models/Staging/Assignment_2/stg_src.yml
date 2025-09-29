@@ -1,0 +1,28 @@
+version: 2
+
+sources:
+  - name: job2
+    schema: Assignment_2
+    tables:
+      - name: Customers
+        description: Source table for customer details
+      - name: Products
+        description: Source table for product details
+      - name: Sales
+        description: Source table for sales transactions
+      - name: Suppliers
+        description: Source table for supplier details
+      - name: Inventory
+        description: Source table for product inventory
+      - name: Shipping
+        description: Source table for shipping details
+      - name: Reviews
+        description: Source table for product reviews
+      - name: Payments
+        description: Source table for payment details
+      - name: Marketing_Campaigns
+        description: Source table for marketing campaigns
+      - name: Campaign_Clicks
+        description: Source table for campaign click tracking
+      - name: Website_Sessions
+        description: Source table for website session details

@@ -46,6 +46,17 @@ models:
     Presentation:
       +materialized: table
       +schema: Presentation
+  job2:
+    Staging:
+      +materialized: table
+      +schema: Staging_Job2
+    Modelling:
+      +materialized: table
+      +schema: Modelling_Job2
+    Presentation:
+      +materialized: table
+      +schema: Presentation_Job2
+
 
   # jaffle_shop:
   #   # Applies to all files under models/example/
