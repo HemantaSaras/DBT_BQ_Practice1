@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: stg_Marketing_Campaigns
+    description: "Staging model for Marketing Campaigns"
+    config:
+      materialized: incremental
+      incremental_strategy: merge
+      partition_by:
+        field: start_date
+        data_type: date
+      unique_key:
+        - campaign_id
+    columns:
+      - name: campaign_id
+        data_type: integer
+        description: "Unique campaign ID"
+      - name: campaign_name
+        data_type: string
+        description: "Name of the campaign"
+      - name: channel
+        data_type: string
+        description: "Marketing channel"
+      - name: start_date
+        data_type: date
+        description: "Start date of campaign"
+      - name: end_date
+        data_type: date
+        description: "End date of campaign"
+      - name: budget
+        data_type: numeric
+        description: "Campaign budget"

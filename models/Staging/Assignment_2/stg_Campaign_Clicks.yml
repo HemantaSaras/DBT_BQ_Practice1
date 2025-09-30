@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg_Campaign_Clicks
+    description: "Staging model for Campaign Clicks"
+    config:
+      materialized: incremental
+      incremental_strategy: merge
+      partition_by:
+        field: click_date
+        data_type: date
+      unique_key:
+        - click_id
+    columns:
+      - name: click_id
+        data_type: integer
+        description: "Unique click record"
+      - name: campaign_id
+        data_type: integer
+        description: "Associated campaign ID"
+      - name: customer_id
+        data_type: integer
+        description: "Customer who clicked"
+      - name: click_date
+        data_type: date
+        description: "Date of click"

@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: stg_Suppliers
+    description: "Staging model for Suppliers"
+    config:
+      materialized: incremental
+      incremental_strategy: merge
+      unique_key:
+        - supplier_id
+    columns:
+      - name: supplier_id
+        data_type: integer
+        description: "Unique supplier identifier"
+      - name: supplier_name
+        data_type: string
+        description: "Supplier name"
+      - name: country
+        data_type: string
+        description: "Supplier country"

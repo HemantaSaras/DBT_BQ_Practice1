@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: stg_Payments
+    description: "Staging model for Payments"
+    config:
+      materialized: incremental
+      incremental_strategy: merge
+      partition_by:
+        field: payment_date
+        data_type: date
+      unique_key:
+        - payment_id
+    columns:
+      - name: payment_id
+        data_type: integer
+        description: "Unique payment ID"
+      - name: sale_id
+        data_type: integer
+        description: "Associated sale ID"
+      - name: payment_method
+        data_type: string
+        description: "Payment method"
+      - name: payment_status
+        data_type: string
+        description: "Payment status"
+      - name: payment_date
+        data_type: date
+        description: "Date of payment"
+      - name: amount
+        data_type: numeric
+        description: "Payment amount"

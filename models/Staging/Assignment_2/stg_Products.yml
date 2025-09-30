@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: stg_Products
+    description: "Staging model for Products"
+    config:
+      materialized: incremental
+      incremental_strategy: merge
+      unique_key:
+        - product_id
+    columns:
+      - name: product_id
+        data_type: integer
+        description: "Unique product identifier"
+      - name: product_name
+        data_type: string
+        description: "Name of the product"
+      - name: category
+        data_type: string
+        description: "Product category"
+      - name: price
+        data_type: numeric
+        description: "Product price"
