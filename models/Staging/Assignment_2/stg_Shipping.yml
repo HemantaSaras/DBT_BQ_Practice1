@@ -1,0 +1,32 @@
+version: 2
+
+models:
+   - name: stg_Shipping
+     description: "Staging model for Shipping details"
+     config:
+      materialized: incremental
+      incremental_strategy: merge
+      partition_by:
+        field: shipping_date
+        data_type: date
+      unique_key:
+        - shipping_id
+     columns:
+      - name: shipping_id
+        data_type: integer
+        description: "Unique shipping record ID"
+      - name: sale_id
+        data_type: integer
+        description: "Associated sale ID"
+      - name: shipping_date
+        data_type: date
+        description: "Date shipment was sent"
+      - name: delivery_date
+        data_type: date
+        description: "Date shipment was delivered"
+      - name: shipping_cost
+        data_type: numeric
+        description: "Cost of shipping"
+      - name: shipping_status
+        data_type: string
+        description: "Shipping status"

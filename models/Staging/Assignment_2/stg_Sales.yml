@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: stg_Sales
+    description: "Staging model for Sales transactions"
+    config:
+      materialized: incremental
+      incremental_strategy: merge
+      partition_by:
+        field: sale_date
+        data_type: date
+      unique_key:
+        - sale_id
+    columns:
+      - name: sale_id
+        data_type: integer
+        description: "Unique sale identifier"
+      - name: customer_id
+        data_type: integer
+        description: "Customer who made the purchase"
+      - name: product_id
+        data_type: integer
+        description: "Product purchased"
+      - name: quantity
+        data_type: integer
+        description: "Quantity purchased"
+      - name: sale_date
+        data_type: date
+        description: "Date of the sale"

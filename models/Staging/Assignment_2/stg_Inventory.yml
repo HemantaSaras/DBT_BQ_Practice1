@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: stg_Inventory
+    description: "Staging model for Inventory"
+    config:
+      materialized: incremental
+      incremental_strategy: merge
+      unique_key:
+        - inventory_id
+    columns:
+      - name: inventory_id
+        data_type: integer
+        description: "Unique inventory record ID"
+      - name: product_id
+        data_type: integer
+        description: "Associated product"
+      - name: stock_quantity
+        data_type: integer
+        description: "Quantity in stock"
+      - name: last_updated
+        data_type: date
+        description: "Last update date of inventory"

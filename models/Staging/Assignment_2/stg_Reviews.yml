@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: stg_Reviews
+    description: "Staging model for Product Reviews"
+    config:
+      materialized: incremental
+      incremental_strategy: merge
+      partition_by:
+        field: review_date
+        data_type: date
+      unique_key:
+        - review_id
+    columns:
+      - name: review_id
+        data_type: integer
+        description: "Unique review ID"
+      - name: customer_id
+        data_type: integer
+        description: "Customer who reviewed"
+      - name: product_id
+        data_type: integer
+        description: "Reviewed product"
+      - name: rating
+        data_type: integer
+        description: "Rating given"
+      - name: review_date
+        data_type: date
+        description: "Date of review"

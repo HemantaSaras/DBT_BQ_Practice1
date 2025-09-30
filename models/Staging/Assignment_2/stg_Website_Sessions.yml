@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: stg_Website_Sessions
+    description: "Staging model for Website Sessions"
+    config:
+      materialized: incremental
+      incremental_strategy: merge
+      partition_by:
+        field: session_date
+        data_type: date
+      unique_key:
+        - session_id
+    columns:
+      - name: session_id
+        data_type: integer
+        description: "Unique session ID"
+      - name: customer_id
+        data_type: integer
+        description: "Customer associated with session"
+      - name: session_date
+        data_type: date
+        description: "Date of session"
+      - name: device
+        data_type: string
+        description: "Device used for session"
+      - name: session_duration
+        data_type: integer
+        description: "Duration of session in seconds"
+      - name: pages_viewed
+        data_type: integer
+        description: "Number of pages viewed in session"
