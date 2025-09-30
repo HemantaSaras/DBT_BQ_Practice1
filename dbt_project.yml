@@ -50,6 +50,9 @@ models:
     Staging:
       +materialized: table
       +schema: Staging_Job2
+      Assignment2:
+        +materialized: table
+        +schema: Assignment2_Job2
     Modelling:
       +materialized: table
       +schema: Modelling_Job2
