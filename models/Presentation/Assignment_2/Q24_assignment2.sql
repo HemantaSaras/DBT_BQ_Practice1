@@ -18,7 +18,7 @@ select
     r.supplier_id,
     r.revenue_generated,
     t.marketing_spent,
-    round(r.revenue_generated / nullif(t.marketing_spent,0),2) as roi
+    round(r.revenue_generated * 100 / nullif(t.marketing_spent,0),2) as roi_percentage
 from supplier_revenue r
 cross join total_marketing t
 left join {{ ref('dim_Suppliers') }} sup
