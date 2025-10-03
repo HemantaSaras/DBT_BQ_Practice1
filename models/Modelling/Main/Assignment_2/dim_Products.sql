@@ -18,6 +18,7 @@ select
     p.product_name,
     p.category as product_category,
     p.price,
+    p.supplier_id,
     coalesce(i.total_stock, 0) as total_stock,
     coalesce(a.avg_rating, 0) as avg_rating
 from {{ ref("stg_Products")}} p

@@ -1,18 +1,26 @@
-with customer_orders as (
+with supplier_revenue as (
     select
-        customer_id,
-        count(distinct sale_id) as total_orders,
-        sum(product_price * quantity) as total_revenue
-    from {{ ref('fact_Sales') }}
-    group by customer_id
+        p.supplier_id,
+        sum(fs.product_price * fs.quantity) as revenue_generated
+    from {{ ref('fact_Sales') }} fs
+    left join {{ ref('dim_Products') }} p
+        on fs.product_id = p.product_id
+    group by p.supplier_id
+),
+
+total_marketing as (
+    select
+        sum(budget) as marketing_spent
+    from {{ ref('dim_Marketing_Campaigns') }}
 )
 
 select
-    case 
-        when total_orders = 1 then 'New Customer'
-        else 'Repeat Customer'
-    end as customer_type,
-    sum(total_revenue) as revenue,
-    round(sum(total_revenue) * 100.0 / sum(sum(total_revenue)) over (), 2) as revenue_pct
-from customer_orders
-group by customer_type
+    r.supplier_id,
+    r.revenue_generated,
+    t.marketing_spent,
+    round(r.revenue_generated / nullif(t.marketing_spent,0),2) as roi
+from supplier_revenue r
+cross join total_marketing t
+left join {{ ref('dim_Suppliers') }} sup
+    on r.supplier_id = sup.supplier_id
+order by roi desc
