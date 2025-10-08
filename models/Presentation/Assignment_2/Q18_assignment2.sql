@@ -13,6 +13,6 @@ select
     mc.campaign_name,
     cs.total_revenue,
     mc.budget,
-    cs.total_revenue / mc.budget * 100 as roi_pct
+    ((cs.total_revenue - mc.budget )/ mc.budget) * 100 as roi_pct
 from {{ ref('dim_Marketing_Campaigns') }} mc
 left join campaign_sales cs on mc.campaign_id = cs.campaign_id

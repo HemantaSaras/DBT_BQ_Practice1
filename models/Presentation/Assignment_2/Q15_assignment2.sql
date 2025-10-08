@@ -1,6 +1,6 @@
 select
     campaign_id,
     campaign_name,
-    count(distinct customer_id)
+    count(distinct customer_id) as unique_customers
 from {{ ref('fact_Campaign_Clicks') }}
 group by campaign_id, campaign_name

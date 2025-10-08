@@ -13,7 +13,7 @@ customers_purchased as (
         count(distinct s.customer_id) as purchased_customers
     from {{ ref('fact_Campaign_Clicks') }} cc
     inner join {{ ref('fact_Sales') }} s 
-        on cc.customer_id = s.customer_id
+        on cc.customer_id = s.customer_id and date(cc.click_date) = date(s.sale_date)
     group by cc.campaign_id
 )
 
@@ -26,3 +26,5 @@ select
 from customers_with_campaign c
 left join customers_purchased p on c.campaign_id = p.campaign_id
 
+
+-- campaign_date = purchase_date
