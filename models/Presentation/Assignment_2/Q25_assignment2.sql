@@ -1,18 +1,29 @@
-with customer_orders as (
+with ordered_sales as (
     select
         customer_id,
-        count(distinct sale_id) as total_orders,
-        sum(product_price * quantity) as total_revenue
+        sale_id,
+        sale_date,
+        product_price * quantity as revenue,
+        row_number() over (partition by customer_id order by sale_date) as order_rank
     from {{ ref('fact_Sales') }}
-    group by customer_id
+),
+
+customer_type_revenue as (
+    select
+        case 
+            when order_rank = 1 then 'New Customer'
+            else 'Repeat Customer'
+        end as customer_type,
+        sum(revenue) as total_revenue
+    from ordered_sales
+    group by customer_type
 )
 
 select
-    case 
-        when total_orders = 1 then 'New Customer'
-        else 'Repeat Customer'
-    end as customer_type,
-    sum(total_revenue) as revenue,
-    round(sum(total_revenue) * 100.0 / sum(sum(total_revenue)) over (), 2) as revenue_pct
-from customer_orders
-group by customer_type
+    customer_type,
+    total_revenue,
+    round(total_revenue * 100.0 / sum(total_revenue) over (), 2) as revenue_pct
+from customer_type_revenue
+
+
+-- row number function on sale based on timeline

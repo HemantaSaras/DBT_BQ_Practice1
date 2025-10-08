@@ -23,4 +23,4 @@ from supplier_revenue r
 cross join total_marketing t
 left join {{ ref('dim_Suppliers') }} sup
     on r.supplier_id = sup.supplier_id
-order by roi desc
+order by roi_percentage desc
